@@ -1,16 +1,19 @@
 package com.example.bookstore.data.entities;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user_session")
-public class Session extends BaseEntity {
+public class Session {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Expose
     @Column(name = "auth_token")
     private String authToken;
 

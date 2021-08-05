@@ -4,9 +4,13 @@ import com.example.bookstore.data.entities.Book;
 import com.example.bookstore.data.repositories.BookRepository;
 import com.example.bookstore.data.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class BookServiceImpl implements BookService {
 
 

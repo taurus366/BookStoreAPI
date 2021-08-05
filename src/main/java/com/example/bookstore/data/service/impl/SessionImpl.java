@@ -4,7 +4,11 @@ import com.example.bookstore.data.entities.Session;
 import com.example.bookstore.data.repositories.SessionRepository;
 import com.example.bookstore.data.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@Transactional
 public class SessionImpl implements SessionService {
 
     @Autowired

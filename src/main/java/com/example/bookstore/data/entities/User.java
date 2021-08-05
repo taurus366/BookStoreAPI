@@ -1,5 +1,7 @@
 package com.example.bookstore.data.entities;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -7,30 +9,42 @@ import java.util.List;
 @Table(name = "Users")
 public class User extends BaseEntity {
 
+    @Expose
     @Column(name = "first_name")
     private String firstName;
 
+    @Expose
     @Column(name = "second_name")
     private String secondName;
 
+    @Expose
     @Column
     private String email;
 
+    @Expose(serialize = false)
     @Column
     private String password;
 
+    @Expose
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Expose
     @Column
     private Gender gender;
 
+    @Expose
+    @Column
+    private Role role;
+
+    @Expose
     @Column
     private String address;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
 
+    @Expose
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Session session;
 
@@ -39,6 +53,14 @@ public class User extends BaseEntity {
 
 
     public User() {
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public User(String firstName, String secondName, String email, String password, String phoneNumber, Gender gender, String address) {
