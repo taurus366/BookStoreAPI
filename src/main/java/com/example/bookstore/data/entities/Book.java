@@ -1,5 +1,7 @@
 package com.example.bookstore.data.entities;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,18 +13,31 @@ import java.util.List;
 @Table(name = "Books")
 public class Book extends BaseEntity{
 
+    @Expose
     @Column
     private String title;
+
+    @Expose
     @Column
     private String author;
+
+    @Expose
     @Column
     private double price;
+
+    @Expose
     @Column(name = "issued_date")
     private Timestamp issuedDate;
+
+    @Expose
     @Column(name = "publish_house")
     private String publishHouse;
+
+    @Expose
     @Column
     private int page;
+
+    @Expose
     @Column(name = "image_url")
     private String imgUrl;
 
