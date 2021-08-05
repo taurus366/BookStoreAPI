@@ -2,8 +2,10 @@ package com.example.bookstore.data.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "Books")
@@ -24,6 +26,19 @@ public class Book extends BaseEntity{
     @Column(name = "image_url")
     private String imgUrl;
 
+    @OneToMany(mappedBy = "book")
+    private List<Order> orderList;
+
+    @OneToMany(mappedBy = "book")
+    private List<ShoppingCart> shoppingCartList;
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
 
     public Book() {
     }
@@ -36,6 +51,14 @@ public class Book extends BaseEntity{
         this.publishHouse = publishHouse;
         this.page = page;
         this.imgUrl = imgUrl;
+    }
+
+    public List<ShoppingCart> getShoppingCartList() {
+        return shoppingCartList;
+    }
+
+    public void setShoppingCartList(List<ShoppingCart> shoppingCartList) {
+        this.shoppingCartList = shoppingCartList;
     }
 
     public String getTitle() {

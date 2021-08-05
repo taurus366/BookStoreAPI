@@ -1,10 +1,11 @@
 package com.example.bookstore.data.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -27,6 +28,15 @@ public class User extends BaseEntity{
     @Column
     private String address;
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orderList;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Session session;
+
+    @OneToMany(mappedBy = "user")
+    private List<ShoppingCart> shoppingCartList;
+
 
     public User() {
     }
@@ -41,6 +51,13 @@ public class User extends BaseEntity{
         this.address = address;
     }
 
+    public List<ShoppingCart> getShoppingCartList() {
+        return shoppingCartList;
+    }
+
+    public void setShoppingCartList(List<ShoppingCart> shoppingCartList) {
+        this.shoppingCartList = shoppingCartList;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -98,14 +115,19 @@ public class User extends BaseEntity{
         this.address = address;
     }
 
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Session session;
-
     public Session getSession() {
         return session;
     }
 
     public void setSession(Session session) {
         this.session = session;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 }
