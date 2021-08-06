@@ -45,7 +45,7 @@ public class BookController {
     public ResponseEntity<String> postBook(@RequestBody String bookAndAuthJson){
 
         Book book = gson.fromJson(bookAndAuthJson, Book.class);
-        User user = this.sessionService.getSessionByToken(gson.fromJson(bookAndAuthJson, JsonObject.class).get("authToken").getAsString()).getUser();
+        User user = this.sessionService.getSessionByToken(gson.fromJson(bookAndAuthJson, JsonObject.class).get("authToken").getAsString()) != null ? this.sessionService.getSessionByToken(gson.fromJson(bookAndAuthJson, JsonObject.class).get("authToken").getAsString()).getUser() : null;
 
         if (user != null && user.getRole().equals(Role.ADMIN)){
 
