@@ -104,4 +104,9 @@ public class OrderController {
         }
         return new ResponseEntity<>(gson.toJson("Please log in"), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
+
+//    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<String> confirmOrDeleteOrders(@RequestBody String json) {
+//
+//    }
 }
