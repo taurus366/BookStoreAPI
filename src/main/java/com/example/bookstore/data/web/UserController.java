@@ -1,5 +1,6 @@
 package com.example.bookstore.data.web;
 
+import com.example.bookstore.data.entities.Role;
 import com.example.bookstore.data.entities.Session;
 import com.example.bookstore.data.entities.User;
 import com.example.bookstore.data.service.SessionService;
@@ -60,6 +61,7 @@ public class UserController {
 
         Session session = new Session(generateAuthToken(), new Timestamp(System.currentTimeMillis()), user);
         user.setSession(session);
+        user.setRole(Role.CLIENT);
 
         User createdUser = this.userService.postUser(user);
 
