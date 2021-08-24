@@ -45,8 +45,10 @@ public class UserController {
         User user = gson.fromJson(userJson, User.class);
         if (checkIfUserExist(user.getEmail(), user.getPassword())) {
             User respond = this.userService.getUserByEmail(user.getEmail());
-
-            return new ResponseEntity<>(gson.toJson(respond), new HttpHeaders(), HttpStatus.OK);
+            if (respond.getPassword().equals(user.getPassword())){
+                return new ResponseEntity<>(gson.toJson(respond), new HttpHeaders(), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(gson.toJson("Email or password are Invalid!"), HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(gson.toJson("Email or password are Invalid!"), HttpStatus.UNAUTHORIZED);
     }
@@ -70,6 +72,9 @@ public class UserController {
 
     @RequestMapping(value = "/change/information", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> changeUserInformation(@RequestBody String userAndSessionJson) {
+
+        System.out.println(userAndSessionJson);
+
         User user = this.sessionService.getSessionByToken(gson.fromJson(userAndSessionJson, JsonObject.class).get("authToken").getAsString()).getUser();
         User userChange = gson.fromJson(userAndSessionJson, User.class);
         if (user != null) {

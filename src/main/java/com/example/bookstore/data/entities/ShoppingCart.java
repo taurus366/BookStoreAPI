@@ -1,14 +1,17 @@
 package com.example.bookstore.data.entities;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "shopping_cart")
 public class ShoppingCart extends BaseEntity{
-
+    @Expose
     @Column(name = "book_count")
     private int bookCount;
 
+    @Expose
     @ManyToOne(fetch = FetchType.EAGER)
     private Book book;
 

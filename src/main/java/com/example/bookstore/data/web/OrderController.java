@@ -69,9 +69,11 @@ public class OrderController {
                     Timestamp ts = new Timestamp(System.currentTimeMillis());
 
                     Order order = new Order(user.getAddress(), shoppingCart.getBookCount(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(ts), user.getPhoneNumber(), shoppingCart.getBook().getPrice(), user, shoppingCart.getBook());
+                    order.setFullName(user.getFirstName() + " " + user.getSecondName());
                     this.orderService.postOrder(order);
                 }
-                this.cartService.getAllCartByUser(user);
+                this.cartService.deleteAllCartByUser(user);
+
                 return new ResponseEntity<>(gson.toJson("Successful ordered Thank you!"), new HttpHeaders(), HttpStatus.ACCEPTED);
             }
             return new ResponseEntity<>(gson.toJson("Your cart is empty!"), new HttpHeaders(), HttpStatus.NOT_FOUND);
