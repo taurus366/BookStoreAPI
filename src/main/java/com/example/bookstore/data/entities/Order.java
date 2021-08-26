@@ -1,5 +1,7 @@
 package com.example.bookstore.data.entities;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -9,27 +11,35 @@ import javax.persistence.Table;
 @Table(name = "orders")
 public class Order extends BaseEntity{
 
+    @Expose()
     @Column
     private String address;
 
+    @Expose
     @Column(name = "book_count")
     private int bookCount;
 
+    @Expose
     @Column(name = "full_name")
     private String fullName;
 
+    @Expose
     @Column(name = "order_date")
     private String orderDate;
 
+    @Expose
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Expose
     @Column(name = "quantity_price")
     private double quantityPrice;
 
+    @Expose
     @ManyToOne
     private User user;
 
+    @Expose
     @ManyToOne
     private Book book;
 

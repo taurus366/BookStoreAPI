@@ -107,8 +107,25 @@ public class OrderController {
         return new ResponseEntity<>(gson.toJson("Please log in"), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
 
-//    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<String> confirmOrDeleteOrders(@RequestBody String json) {
-//
-//    }
+    @RequestMapping(value = "/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> confirmOrDeleteOrders(@RequestBody String authTokenJson) {
+    String authToken = gson.fromJson(authTokenJson, JsonObject.class).get("authToken").getAsString();
+    User clientUser = this.userService.getUserByEmail(gson.fromJson(authTokenJson, JsonObject.class).get("emailAddress").getAsString()) != null ? this.userService.getUserByEmail(gson.fromJson(authTokenJson, JsonObject.class).get("emailAddress").getAsString()) : null;
+    User user = this.sessionService.getSessionByToken(authToken) != null ? this.sessionService.getSessionByToken(authToken).getUser() : null;
+    if (user != null){
+        if (user.getRole().equals(Role.ADMIN)){
+            try {
+                this.orderService.deleteAllByUser(clientUser);
+
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
+               return new ResponseEntity<>(gson.toJson("Something wnt wrong please try again!"), new HttpHeaders(),HttpStatus.CONFLICT);
+            }
+            return new ResponseEntity<>(gson.toJson("Order is deleted !"), new HttpHeaders(),HttpStatus.OK);
+
+        }
+    }
+        return new ResponseEntity<>(gson.toJson("Please log as ADMIN"), new HttpHeaders(),HttpStatus.UNAUTHORIZED);
+
+    }
 }

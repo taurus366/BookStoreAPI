@@ -11,4 +11,5 @@ public interface OrderService {
     Set<Order> getAllOrdersByTime();
     void deleteAllByUser(User user);
     Set<Order> findOrderByUser(User user);
+    void deleteById(int id);
 }

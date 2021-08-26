@@ -41,4 +41,9 @@ public class OrderServiceImpl implements OrderService {
     public Set<Order> findOrderByUser(User user) {
         return this.orderRepository.findAllByUser(user);
     }
+
+    @Override
+    public void deleteById(int id) {
+        this.orderRepository.deleteById((long)id);
+    }
 }
