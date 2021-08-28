@@ -50,7 +50,7 @@ public class BookController {
         if (user != null && user.getRole().equals(Role.ADMIN)){
 
             this.bookService.postBook(book);
-            return new ResponseEntity<>(gson.toJson("created!"), new HttpHeaders(), HttpStatus.CREATED);
+            return new ResponseEntity<>(gson.toJson("the book is added to DataBase"), new HttpHeaders(), HttpStatus.CREATED);
         }
         return new ResponseEntity<>(gson.toJson("Please log in as ADMIN to ADD new Book to the system!"), new HttpHeaders(),HttpStatus.UNAUTHORIZED);
     }
@@ -72,7 +72,7 @@ public class BookController {
         return null;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteBookById(@PathVariable String id, @RequestBody String authJson){
 
         Book book = this.bookService.getBookById(Long.parseLong(id));
